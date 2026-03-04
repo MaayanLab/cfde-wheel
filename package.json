@@ -1,6 +1,6 @@
 {
   "name": "cfde-wheel",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CFDE Navigation Wheel",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
