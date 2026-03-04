@@ -2,7 +2,7 @@ import * as react_jsx_runtime from 'react/jsx-runtime';
 
 interface dccType {
     id: string;
-    short_label: string;
+    label: string;
     homepage: string;
     icon: string;
     description?: string;
