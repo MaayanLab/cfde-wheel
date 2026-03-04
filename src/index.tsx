@@ -36,7 +36,7 @@ const CFDEWheel = ({button, new_window}: {button?:boolean, new_window?:boolean})
 		const fetch_dccs = async () => {
 			try {
 				console.log("Fetching")
-				const r = await fetch("https://raw.gitahubusercontent.com/MaayanLab/cfde-wheel/refs/heads/main/src/dccs.json")
+				const r = await fetch("https://raw.githubusercontent.com/MaayanLab/cfde-wheel/refs/heads/main/src/dccs.json")
 				setDccs(await r.json())
 			} catch (error) {
 				setDccs(dccs_default)
