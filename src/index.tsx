@@ -28,7 +28,7 @@ const FabComponent = ({children, ...props}: {children: React.ReactNode}) => (
 
 const CFDEWheel = ({button, new_window}: {button?:boolean, new_window?:boolean}) => {
 	const [dccs, setDccs] = useState<Array<dccType>>([])
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 	const Wrapper = button ? Button: FabComponent
