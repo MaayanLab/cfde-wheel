@@ -7,8 +7,9 @@ interface dccType {
     icon: string;
     description?: string;
 }
-declare const CFDEWheel: ({ button }: {
+declare const CFDEWheel: ({ button, new_window }: {
     button?: boolean;
+    new_window?: boolean;
 }) => react_jsx_runtime.JSX.Element;
 
 export { type dccType, CFDEWheel as default };

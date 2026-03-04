@@ -26,7 +26,7 @@ const FabComponent = ({children, ...props}: {children: React.ReactNode}) => (
 )
 
 
-const CFDEWheel = ({button}: {button?:boolean}) => {
+const CFDEWheel = ({button, new_window}: {button?:boolean, new_window?:boolean}) => {
 	const [dccs, setDccs] = useState<Array<dccType>>([])
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
@@ -52,7 +52,7 @@ const CFDEWheel = ({button}: {button?:boolean}) => {
 				aria-describedby="modal-modal-description"
 			>
 				<>
-					<InteractiveNavComponent dccs={dccs} handleClose={handleClose}/>
+					<InteractiveNavComponent dccs={dccs} handleClose={handleClose} new_window={new_window}/>
 				</>
 			</Modal>
 		</div>

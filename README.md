@@ -14,7 +14,8 @@ npm install git+ssh://github.com/MaayanLab/cfde-wheel
 import CFDEWheel from 'cfde-wheel'
 
 export const MyComponent = () => {
-	return <CFDEWheel/>
+	// Link opens to a new window
+	return <CFDEWheel new_window={true}/>
 }
 ```
 
