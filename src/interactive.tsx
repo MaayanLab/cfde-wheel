@@ -11,7 +11,10 @@ import { useEffect, useRef, useState } from "react";
 				// right: "50%",
 				// top: "0%"
 				// top: 60
-				transform: `translate(${-radius/20}px, ${radius/3.2 + 10}px)`
+				transform: `translate(${-radius/20}px, ${radius/3.2 + 10}px)`,
+				":hover": {
+					transform: `translate(${-radius/20}px, ${radius/3.2 - 10}px)`,
+				}
 			},
 			text_position: {
 				top: "30%",
@@ -29,7 +32,10 @@ import { useEffect, useRef, useState } from "react";
 			position: {
 				// left: "40%",
 				// top: "70%"
-				transform: `translate(${radius/2.5}px, ${radius/1.77 + 10}px)`
+				transform: `translate(${radius/2.5}px, ${radius/1.77 + 10}px)`,
+				":hover": {
+					transform: `translate(${radius/2.1}px, ${radius/1.77 + 10}px)`,
+				}
 			},
 			text_position: {
 				top: "50%",
@@ -45,7 +51,10 @@ import { useEffect, useRef, useState } from "react";
 			label: "knowledge",
 			endpoint: "https://info.cfde.cloud/centers/KC",
 			position: {
-				transform: `translate(${radius/3.25}px, ${radius*1.07 + 10}px)`
+				transform: `translate(${radius/3.25}px, ${radius*1.07 + 10}px)`,
+				":hover": {
+					transform: `translate(${radius/3.25}px, ${radius*1.07 + 30}px)`,
+				}
 			},
 			text_position: {
 				top: "75%",
@@ -61,7 +70,10 @@ import { useEffect, useRef, useState } from "react";
 			endpoint: "https://info.cfde.cloud/centers/TC",
 			rotate: "72deg",
 			position: {
-				transform: `translate(${-radius/5}px, ${radius*1.135 + 10}px)`
+				transform: `translate(${-radius/5}px, ${radius*1.135 + 10}px)`,
+				":hover": {
+					transform: `translate(${-radius/5}px, ${radius*1.135 + 30}px)`,
+				}
 			},
 			text_position: {
 				top: "65%",
@@ -77,7 +89,11 @@ import { useEffect, useRef, useState } from "react";
 			endpoint: "https://info.cfde.cloud/centers/DRC",
 			rotate: "144deg",
 			position: {
-				transform: `translate(${-radius/2.4}px, ${radius/1.49 + 10}px)`
+				transform: `translate(${-radius/2.4}px, ${radius/1.49 + 10}px)`,
+				":hover": {
+					transform: `translate(${-radius/2}px, ${radius/1.49 + 10}px)`,
+					// width: radius
+				}
 			},
 			text_position: {
 				top: "25%",
@@ -148,7 +164,10 @@ export default function InteractiveNavComponent({dccs, handleClose, new_window=f
 										width: radius/3.5, 
 										height:  radius/3.5,
 										position: "absolute",
-										transform: `translate(${x}px, ${y}px)`
+										transform: `translate(${x}px, ${y}px)`,
+										":hover": {
+											background: "#C3E1E6", 
+										}
 									}}
 								>
 									<Box 
@@ -186,7 +205,7 @@ export default function InteractiveNavComponent({dccs, handleClose, new_window=f
 									width: radius/1.47,
 									height: radius/1.47,
 									// transform: `translate(${x}px, ${y}px) rotate(${center.rotate || '0deg'})`,
-									...(center.position || {})
+									...(center.position || {}),
 							}}>
 								<Container sx={{
 									position: "relative",
@@ -202,7 +221,9 @@ export default function InteractiveNavComponent({dccs, handleClose, new_window=f
 										objectFit: "contain",
 										color: "transparent",
 										display: "block",
-										transform: `rotate(${center.rotate || '0deg'})`}}/>
+										transform: `rotate(${center.rotate || '0deg'})`,
+									}}
+										/>
 									<Typography sx={{color: "#FFF", position: "absolute", textTransform: "uppercase", fontSize: radius/17.5, ...(center.text_position || {})}}>
 										<b>{center.label}</b>
 									</Typography>
@@ -230,6 +251,9 @@ export default function InteractiveNavComponent({dccs, handleClose, new_window=f
 							transform: `translate(${radius/250}px, ${radius/1.14 + 10}px)`,
 							padding: 1,
 							zIndex: 100,
+							":hover": {
+								background: "#C3E1E6", 
+							}
 						}}
 					>
 						<Box 
