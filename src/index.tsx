@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Modal from '@mui/material/Modal';
 import Fab from '@mui/material/Fab';
 import Button from '@mui/material/Button';
-
+import dccs_default from './dccs.json'
 export interface dccType {
 	id: string
-	short_label: string
+	label: string
 	homepage: string
 	icon: string
 	description?: string 
@@ -26,7 +26,7 @@ const FabComponent = ({children, ...props}: {children: React.ReactNode}) => (
 )
 
 
-const CFDEWheel = ({button}: {button?:boolean}) => {
+const CFDEWheel = ({button, new_window}: {button?:boolean, new_window?:boolean}) => {
 	const [dccs, setDccs] = useState<Array<dccType>>([])
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
@@ -34,8 +34,14 @@ const CFDEWheel = ({button}: {button?:boolean}) => {
 	const Wrapper = button ? Button: FabComponent
 	useEffect(()=>{
 		const fetch_dccs = async () => {
-			const r = await fetch("https://raw.githubusercontent.com/MaayanLab/cfde-wheel/refs/heads/main/src/dccs.json")
-			setDccs(await r.json())
+			try {
+				console.log("Fetching")
+				const r = await fetch("https://raw.gitahubusercontent.com/MaayanLab/cfde-wheel/refs/heads/main/src/dccs.json")
+				setDccs(await r.json())
+			} catch (error) {
+				setDccs(dccs_default)
+			}
+			
 		}
 		fetch_dccs()
 	}, [])
@@ -52,7 +58,7 @@ const CFDEWheel = ({button}: {button?:boolean}) => {
 				aria-describedby="modal-modal-description"
 			>
 				<>
-					<InteractiveNavComponent dccs={dccs} handleClose={handleClose}/>
+					<InteractiveNavComponent dccs={dccs} handleClose={handleClose} new_window={new_window}/>
 				</>
 			</Modal>
 		</div>

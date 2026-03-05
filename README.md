@@ -14,7 +14,8 @@ npm install git+ssh://github.com/MaayanLab/cfde-wheel
 import CFDEWheel from 'cfde-wheel'
 
 export const MyComponent = () => {
-	return <CFDEWheel/>
+	// Link opens to a new window
+	return <CFDEWheel new_window={true}/>
 }
 ```
 
@@ -26,3 +27,7 @@ Note for Next.js: This is a client component so you need to add `'use client'` i
 npm run storybook
 ```
 This should open `http://localhost:6006/` where you can view the component.
+
+## Notes
+
+To get the most up-to-date DCC list, add raw.githubusercontent.com to your Content Security Policy. Otherwise, the wheel will default to the `dccs.json` at the time of install. 
