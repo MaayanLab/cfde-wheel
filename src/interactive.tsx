@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
   const centers = (radius:number) => ([
 	{
 			label: "coordination",
-			endpoint: "https://data.cfde.cloud/",
+			endpoint: "https://cfdeconnect.org/",
 			rotate: '216deg',
 			position: {
 				// right: "50%",
