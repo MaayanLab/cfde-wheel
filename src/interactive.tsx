@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
   const centers = (radius:number) => ([
 	{
 			label: "coordination",
-			endpoint: "https://info.cfde.cloud/centers/ICC",
+			endpoint: "https://cfdeworkspace.org/",
 			rotate: '216deg',
 			position: {
 				// right: "50%",
@@ -27,7 +27,7 @@ import { useEffect, useRef, useState } from "react";
 		},
 		{
 			label: "cloud",
-			endpoint: "https://info.cfde.cloud/centers/CWIC",
+			endpoint: "https://cfdeworkspace.org/",
 			rotate: "-72deg",
 			position: {
 				// left: "40%",
@@ -49,7 +49,7 @@ import { useEffect, useRef, useState } from "react";
 		},
 		{
 			label: "knowledge",
-			endpoint: "https://info.cfde.cloud/centers/KC",
+			endpoint: "https://cfdeknowledge.org/r/kc_landing",
 			position: {
 				transform: `translate(${radius/3.25}px, ${radius*1.07 + 10}px)`,
 				":hover": {
@@ -67,7 +67,7 @@ import { useEffect, useRef, useState } from "react";
 		},
 		{
 			label: "training",
-			endpoint: "https://info.cfde.cloud/centers/TC",
+			endpoint: "https://orau.org/cfde-trainingcenter/",
 			rotate: "72deg",
 			position: {
 				transform: `translate(${-radius/5}px, ${radius*1.135 + 10}px)`,
