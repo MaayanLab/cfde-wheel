@@ -112,7 +112,7 @@ This will generate the production build output (typically in a `dist/` directory
 
 ## Alternative: Browser Embed
 
-If you need a **browser-ready, non-React embed**, see the related repository:
+If you need a **browser-ready embed**, see the related repository:
 
 - https://github.com/TACC/cfde-wheel-embed
 
