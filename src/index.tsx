@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fab from '@mui/material/Fab';
 import Button from '@mui/material/Button';
 import dccs_default from './dccs.json'
+export * from "./interactive"
 export interface dccType {
 	id: string
 	label: string
