@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fab from '@mui/material/Fab';
 import Button from '@mui/material/Button';
 import dccs_default from './dccs.json'
+import { Tooltip } from "@mui/material";
 export * from "./interactive"
 export interface dccType {
 	id: string
@@ -49,9 +50,11 @@ const CFDEWheel = ({button, new_window}: {button?:boolean, new_window?:boolean})
 	
 	return (
 		<div>
-			<Wrapper onClick={handleOpen}>
-				<img src="https://cfde-drc.s3.us-east-2.amazonaws.com/assets/img/cfde_unified_icon.svg" alt={'nav-but'} width={120} height={120}/>
-			</Wrapper>
+			<Tooltip title="Open CFDE Wheel">
+				<Wrapper onClick={handleOpen}>
+					<img src="https://cfde-drc.s3.us-east-2.amazonaws.com/assets/img/cfde_unified_icon.svg" alt={'nav-but'} width={120} height={120}/>
+				</Wrapper>
+			</Tooltip>
 			<Modal
 				open={open}
 				onClose={handleClose}
