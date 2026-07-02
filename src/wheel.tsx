@@ -1,11 +1,11 @@
 "use client"
-import InteractiveNavComponent from "./interactive";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from '@mui/material/Modal';
 import Fab from '@mui/material/Fab';
 import Button from '@mui/material/Button';
 import dccs_default from './dccs.json'
 import { Tooltip } from "@mui/material";
+import InteractiveModal from "./modal";
 export * from "./interactive"
 export interface dccType {
 	id: string
@@ -62,7 +62,7 @@ const CFDEWheel = ({button, new_window}: {button?:boolean, new_window?:boolean})
 				aria-describedby="modal-modal-description"
 			>
 				<>
-					<InteractiveNavComponent dccs={dccs} handleClose={handleClose} new_window={new_window}/>
+					<InteractiveModal dccs={dccs} handleClose={handleClose} new_window={new_window}/>
 				</>
 			</Modal>
 		</div>

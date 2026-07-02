@@ -1,5 +1,6 @@
 import InteractiveNavComponent from "./interactive";
+import InteractiveModal from "./modal";
 import CFDEWheel from "./wheel";
 
-export {InteractiveNavComponent, CFDEWheel};
+export {InteractiveNavComponent, InteractiveModal, CFDEWheel};
 export default CFDEWheel;
