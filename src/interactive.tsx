@@ -1,5 +1,5 @@
 "use client"
-import { Container, Button, IconButton, Typography, Tooltip, Link, Box } from "@mui/material";
+import { Container, Button, IconButton, Typography, Tooltip, Link, Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
  
   const centers = (radius:number) => ([
@@ -106,43 +106,69 @@ import { useEffect, useState } from "react";
 		},
 	])
 
-const default_radius = 280
+const default_radius = 250
 // const radius_small = 200
 
 
-function useViewportDimensions() {
-  const [dimensions, setDimensions] = useState(() => ({ height: 700, width: 700}))
-  useEffect(() => {
-    const ctx: any = {}
-    const listener = () => {
-      if (ctx.resizeTimeout) clearTimeout(ctx.resizeTimeout);
-      ctx.resizeTimeout = setTimeout(() => {
-        setDimensions({
-          height: window.innerHeight,
-          width: window.innerWidth,
-        })
-      }, 200);
-    };
-    window.addEventListener('resize', listener)
-    return () => window.removeEventListener('resize', listener)
-  }, [])
-  return dimensions
+function useRadius() {
+//   const [dimensions, setDimensions] = useState(() => ({ height: 700, width: 700}))
+//   const theme = useTheme()
+//   const matches = useMediaQuery(theme.breakpoints.down('sm'));
+//   useEffect(() => {
+//     const ctx: any = {}
+//     const listener = () => {
+//       if (ctx.resizeTimeout) clearTimeout(ctx.resizeTimeout);
+//       ctx.resizeTimeout = setTimeout(() => {
+// 		if (window.innerHeight < 700 || window.innerWidth < 700)
+//         setDimensions({
+//           height: window.innerHeight,
+//           width: window.innerWidth,
+//         })
+//       }, 200);
+//     };
+//     window.addEventListener('resize', listener)
+//     return () => window.removeEventListener('resize', listener)
+//   }, [])
+//   const divider = (window.innerHeight < 700 || window.innerWidth < 700) ? 4: 2
+//   return Math.min(dimensions.width/divider, dimensions.height/divider) - 30
+	const theme = useTheme()
+	const lg = useMediaQuery(theme.breakpoints.up('lg'))
+	const md = useMediaQuery(theme.breakpoints.up('md'))
+	const sm = useMediaQuery(theme.breakpoints.up('sm'))
+	const xs = useMediaQuery(theme.breakpoints.up('xs'))
+ 	if (lg) return 300
+	if (md) return 300
+	if (sm) return 200
+	if (xs) return 150
+	else return 350
 }
 
 export default function InteractiveNavComponent({dccs, new_window=false}: {dccs: Array<any>, new_window?: boolean}) {
 	const pie_chunk = 2*Math.PI/(dccs.length)
-	const dimensions = useViewportDimensions()
-	const radius = Math.max(Math.min(dimensions.width/2, dimensions.height/2, default_radius) - 30, 100)
+	// const dimensions = useViewportDimensions()
+	// const radius = Math.max(Math.min(dimensions.width/3, dimensions.height/3, default_radius) - 30, 100)
+	const radius = useRadius()
+	// const radius = 350
+	const clamp_radius = {xs: 200, md: 350, xl: 350}
 	const link_props: {[key: string]: string} = {}
 	if (new_window)
 		link_props.target="_blank" 
 		link_props.rel="noopener noreferrer"
 	return (
-		<Container sx={{position: "relative", display: "flex", justifyContent: "center", marginTop: 10, height: radius*2.9}}>
+		<Container sx={{
+			position: "relative",
+			display: "flex",
+			justifyContent: "center",
+			marginTop: 10,
+			height: radius*2.7,
+		}}>
 			{dccs.map((dcc:any, i:number)=>{
 				const angle = pie_chunk * i
 				const x = radius * Math.cos(angle)
+				// const x = `clamp(${clamp_radius.xs * Math.cos(angle)}, ${clamp_radius.md * Math.cos(angle)}, ${clamp_radius.xl * Math.cos(angle)})`
 				const y = radius * Math.sin(angle) + radius
+				// const y = `clamp(${clamp_radius.xs * Math.sin(angle) + radius}, ${clamp_radius.md * Math.sin(angle) + radius}, ${clamp_radius.xl * Math.sin(angle) + radius})`
+				console.log(x,y)
 				return (
 					<Tooltip title={<Typography>{dcc.description}</Typography>} key={dcc.label || ''} >
 						<IconButton 
@@ -222,9 +248,7 @@ export default function InteractiveNavComponent({dccs, new_window=false}: {dccs:
 							<Container>
 								<img src={`https://cfde-drc.s3.us-east-2.amazonaws.com/assets/img/${center.label} 1.png`} alt={center.label} style={{position: "absolute", width: radius/7, height: radius/7, zIndex: 100, ...(center.image_position || {})}}/>
 							</Container>
-							{/* <Container sx={{display: {md: 'none', xs: 'block'}}}>
-								<img src={`https://cfde-drc.s3.us-east-2.amazonaws.com/assets/img/${center.label} 1.png`} alt={center.label} style={{position: "absolute", zIndex: 100, width: 30, height: 30, ...(center.image_position_small || {})}}/>
-							</Container> */}
+							
 								
 						</Container>
 					</Button>
@@ -279,6 +303,7 @@ export default function InteractiveNavComponent({dccs, new_window=false}: {dccs:
 					opacity: "0.5"
 				}}
 			></Container>
+			
 		</Container>
 	)
 }
