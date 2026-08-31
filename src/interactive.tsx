@@ -1,7 +1,6 @@
 "use client"
-import { Container, Button, IconButton, Typography, Tooltip, Link, Box, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
- 
+import { Container, Button, IconButton, Typography, Tooltip, Link, Box, useMediaQuery, useTheme, Card, CardHeader, CardContent, Stack, CardActionArea, tooltipClasses, styled, TooltipProps } from "@mui/material";
+import Image from "next/image";
   const centers = (radius:number) => ([
 	{
 			label: "coordination",
@@ -23,6 +22,14 @@ import { useEffect, useState } from "react";
 			image_position: {
 				top: "60%",
 				left: "47%"
+			},
+			tooltip: {
+				name: "Integration and Coordination Center",
+				hero: "Learn How to Engage with the CFDE Consortium",
+				blurb: "CFDE CONNECT is the Integration and Coordination Center (ICC) of the CFDE. The center is dedicated to organizing the CFDE consortium and for developing evaluation and sustainability methods for Common Fund programs and the CFDE.",
+				image: "https://cfde-drc.s3.amazonaws.com/assets/img/centers/IC.png",
+				link: "https://cfdeconnect.org/",
+				width: 400
 			}
 		},
 		{
@@ -45,6 +52,14 @@ import { useEffect, useState } from "react";
 			image_position: {
 				top: "50%",
 				left: "20%"
+			},
+			tooltip: {
+				name: "Cloud Workspace Implementation Center",
+				hero: "Sign Up for Your Own CFDE Cloud Workspace",
+				blurb: "The CFDE Cloud Workspace provides researchers with a free cloud computing platform that serves Galaxy to analyze and integrate large NIH Common Fund datasets using a variety of workflows.",
+				image: "https://cfde-drc.s3.amazonaws.com/assets/img/centers/CWIC.png",
+				link: "https://cfdeworkspace.org/",
+				width: 400
 			}
 		},
 		{
@@ -63,6 +78,14 @@ import { useEffect, useState } from "react";
 			image_position: {
 				top: "30%",
 				left: "13%"
+			},
+			tooltip: {
+				name: "Knowledge Center",
+				hero: "Discover Knowledge Extracted from CFDE Datasets",
+				blurb: "The CFDE Knowledge Center (KC) translates complex Common Fund data into highly curated biological insights using tailored visualizations to help researchers easily analyze genes, phenotypes, and pathways from across NIH Common Fund programs.",
+				image: "https://cfde-drc.s3.amazonaws.com/assets/img/centers/KC.svg",
+				link: "https://cfdeknowledge.org/r/kc_landing",
+				width: 230
 			}
 		},
 		{
@@ -82,6 +105,14 @@ import { useEffect, useState } from "react";
 			image_position: {
 				top: "20%",
 				left: "45%"
+			},
+			tooltip: {
+				name: "Training Center",
+				hero: "Acquire Skills in Using CFDE Datasets and Tools",
+				blurb: "The CFDE Training Center is dedicated to expanding the user base of NIH Common Fund and CFDE resources by delivering educational and outreach activities such as workshops, competitions, hackathons, webinars, and podcasts.",
+				image: "https://cfde-drc.s3.amazonaws.com/assets/img/centers/TC.svg",
+				link: "https://orau.org/cfde-trainingcenter/",
+				width: 300
 			}
 		},
 		{
@@ -102,6 +133,14 @@ import { useEffect, useState } from "react";
 			image_position: {
 				top: "35%",
 				left: "60%"
+			},
+			tooltip: {
+				name: "Data Resource Center",
+				hero: "Explore Harmonized Common Fund Datasets",
+				blurb: "The CFDE Data Resource Center (DRC) hosts the CFDE Workbench, a comprehensive platform that provides harmonized metadata, processed data, and tools for data analysis across NIH Common Fund programs.",
+				image: "https://cfde-drc.s3.amazonaws.com/assets/img/centers/DRC.png",
+				link: "https://cfde.cloud",
+				width: 400
 			}
 		},
 	])
@@ -143,7 +182,60 @@ function useRadius() {
 	else return 350
 }
 
-export default function InteractiveNavComponent({dccs, new_window=false}: {dccs: Array<any>, new_window?: boolean}) {
+const CenterTooltip = (center: {
+	name: string,
+	hero: string,
+	blurb: string,
+	image: string,
+	link: string,
+	width: number,
+}) => {
+	return (
+		<Card sx={{minHeight: 300, display: "flex", flexDirection: "column"}}>
+                  <CardHeader 
+                    title={<Typography variant="h5">{center.name}</Typography>}
+                    subheader={<Typography variant="body1">{center.hero}</Typography>}
+                  />
+                  <CardContent sx={{minHeight: 100, flexGrow: 1}}>
+                    <Stack spacing={3} sx={{height: "100%", justifyContent: "space-around"}}>
+                      {/* <Image src={center.image} alt={center.name} width={center.width} height={200}/>	 */}
+                      <Typography variant="body2">{center.blurb}</Typography>
+                      {/* <Button sx={{color: "oklch(85% .16 195)", mb: 2}} target="_blank" rel="noopener noreferrer" href={center.link} endIcon={<Icon path={mdiArrowTopRight} size={1} />}>
+                        <Typography sx={{color: "oklch(85% .16 195)"}} variant="body2">Go to {center.name} Portal</Typography>
+                      </Button> */}
+                    </Stack>
+                  </CardContent>
+                </Card>
+	)
+}
+
+const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: 'transparent',
+    // color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: 'none',
+    // fontSize: 11,
+  },
+}));
+const CenterWrapper = ({center_tooltip, props, children}: {center_tooltip: boolean, props: {
+	name: string,
+	hero: string,
+	blurb: string,
+	image: string,
+	link: string,
+	width: number,
+}, children: React.ReactElement}) => {
+	if (center_tooltip) {
+		return <LightTooltip title={<CenterTooltip {...props}/>}
+		>
+			{children}
+		</LightTooltip>
+	} else return children
+}
+
+export default function InteractiveNavComponent({dccs, center_tooltip=false, new_window=false}: {dccs: Array<any>, new_window?: boolean, center_tooltip?:boolean}) {
 	const pie_chunk = 2*Math.PI/(dccs.length)
 	// const dimensions = useViewportDimensions()
 	// const radius = Math.max(Math.min(dimensions.width/3, dimensions.height/3, default_radius) - 30, 100)
@@ -213,45 +305,47 @@ export default function InteractiveNavComponent({dccs, new_window=false}: {dccs:
 			
 			{centers(radius).map((center, i)=>{
 				return (
-					<Button 
-						key={center.label} 
-						href={center.endpoint}
-						{...link_props}
-						// onClick={handleClose}
-						sx={{
-							position: "absolute",
-							width: radius/1.47,
-							height: radius/1.47,
-							// transform: `translate(${x}px, ${y}px) rotate(${center.rotate || '0deg'})`,
-							...(center.position || {}),
-					}}>
-						<Container sx={{
-							position: "relative",
-							width: radius/1.65,
-							height: radius/1.65,
-						}}>
-							<img src={`https://cfde-drc.s3.us-east-2.amazonaws.com/assets/img/${center.label}.png`} alt={center.label} loading="lazy" decoding="async"  sizes="100vw" style={{
+					<CenterWrapper center_tooltip={center_tooltip} props={center.tooltip} key={center.label}>
+						<Button 
+							key={center.label} 
+							href={center.endpoint}
+							{...link_props}
+							// onClick={handleClose}
+							sx={{
 								position: "absolute",
-								height: "100%",
-								width: "100%",
-								maxWidth: "100%",
-								inset: "0px",
-								objectFit: "contain",
-								color: "transparent",
-								display: "block",
-								transform: `rotate(${center.rotate || '0deg'})`,
-							}}
-								/>
-							<Typography sx={{color: "#FFF", position: "absolute", textTransform: "uppercase", fontSize: radius/17.5, ...(center.text_position || {})}}>
-								<b>{center.label}</b>
-							</Typography>
-							<Container>
-								<img src={`https://cfde-drc.s3.us-east-2.amazonaws.com/assets/img/${center.label} 1.png`} alt={center.label} style={{position: "absolute", width: radius/7, height: radius/7, zIndex: 100, ...(center.image_position || {})}}/>
-							</Container>
-							
+								width: radius/1.47,
+								height: radius/1.47,
+								// transform: `translate(${x}px, ${y}px) rotate(${center.rotate || '0deg'})`,
+								...(center.position || {}),
+						}}>
+							<Container sx={{
+								position: "relative",
+								width: radius/1.65,
+								height: radius/1.65,
+							}}>
+								<img src={`https://cfde-drc.s3.us-east-2.amazonaws.com/assets/img/${center.label}.png`} alt={center.label} loading="lazy" decoding="async"  sizes="100vw" style={{
+									position: "absolute",
+									height: "100%",
+									width: "100%",
+									maxWidth: "100%",
+									inset: "0px",
+									objectFit: "contain",
+									color: "transparent",
+									display: "block",
+									transform: `rotate(${center.rotate || '0deg'})`,
+								}}
+									/>
+								<Typography sx={{color: "#FFF", position: "absolute", textTransform: "uppercase", fontSize: radius/17.5, ...(center.text_position || {})}}>
+									<b>{center.label}</b>
+								</Typography>
+								<Container>
+									<img src={`https://cfde-drc.s3.us-east-2.amazonaws.com/assets/img/${center.label} 1.png`} alt={center.label} style={{position: "absolute", width: radius/7, height: radius/7, zIndex: 100, ...(center.image_position || {})}}/>
+								</Container>
 								
-						</Container>
-					</Button>
+									
+							</Container>
+						</Button>
+					</CenterWrapper>
 				)
 			})}
 			<Button variant="contained"

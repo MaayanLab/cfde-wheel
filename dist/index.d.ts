@@ -1,8 +1,9 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
-declare function InteractiveNavComponent({ dccs, new_window }: {
+declare function InteractiveNavComponent({ dccs, center_tooltip, new_window }: {
     dccs: Array<any>;
     new_window?: boolean;
+    center_tooltip?: boolean;
 }): react_jsx_runtime.JSX.Element;
 
 declare function InteractiveModal({ dccs, handleClose, new_window }: {
