@@ -260,7 +260,6 @@ export default function InteractiveNavComponent({dccs, center_tooltip=false, new
 				// const x = `clamp(${clamp_radius.xs * Math.cos(angle)}, ${clamp_radius.md * Math.cos(angle)}, ${clamp_radius.xl * Math.cos(angle)})`
 				const y = radius * Math.sin(angle) + radius
 				// const y = `clamp(${clamp_radius.xs * Math.sin(angle) + radius}, ${clamp_radius.md * Math.sin(angle) + radius}, ${clamp_radius.xl * Math.sin(angle) + radius})`
-				console.log(x,y)
 				return (
 					<Tooltip title={<Typography>{dcc.description}</Typography>} key={dcc.label || ''} >
 						<IconButton 
