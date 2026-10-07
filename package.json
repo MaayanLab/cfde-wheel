@@ -1,6 +1,6 @@
 {
   "name": "cfde-wheel",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "CFDE Navigation Wheel",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -21,11 +21,14 @@
     "@mui/material": "^5.17.1",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.8",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+    
   },
   "devDependencies": {
     "@storybook/addon-docs": "^9.0.4",
