@@ -138,12 +138,13 @@ const update_dccs = async () => {
 	// const homepage_index = columns.indexOf("homepage")
 	const icon_index = columns.indexOf("icon")
 	const active_index = columns.indexOf("active")
+	const hidden_index = columns.indexOf("hidden")
 	const description_index = columns.indexOf("short_description")
 	const all_dccs = []
 	for (const row of rows) {
 		const dccs = row.split("\t")
 		const label:string = dccs[label_index]
-		if (label && dccs[active_index] !== 'False') {
+		if (label && dccs[active_index] !== 'False' && dccs[hidden_index] !== 'True') {
 			const info = {
 				id: dccs[id_index],
 				label,
@@ -154,7 +155,7 @@ const update_dccs = async () => {
 			all_dccs.push(info)
 		}
 	}
-	fs.writeFile('./src/dccs.json', JSON.stringify(all_dccs), 'utf-8', function(err) {
+	fs.writeFile('./src/dccs.json', JSON.stringify(all_dccs), 'utf-8', function(err: any) {
     	if (err) throw err;
     	console.log('complete');
     })
