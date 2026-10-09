@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from '@mui/material/Modal';
 import Fab from '@mui/material/Fab';
 import Button from '@mui/material/Button';
@@ -14,6 +14,8 @@ export interface dccType {
 	icon: string
 	description?: string 
 }
+type MyButtonProps = React.ComponentPropsWithoutRef<'div'>;
+export const MyButton = React.forwardRef<HTMLDivElement, MyButtonProps>((props, ref) => <div role="button" {...props} ref={ref} />);
 
 const FabComponent = ({children, ...props}: {children: React.ReactNode}) => (
 	<Fab {...props} sx={{
@@ -51,7 +53,7 @@ const CFDEWheel = ({button, new_window}: {button?:boolean, new_window?:boolean})
 	return (
 		<div>
 			<Tooltip title="Open CFDE Wheel">
-				<Wrapper onClick={handleOpen}>
+				<Wrapper onClick={handleOpen} component={MyButton}>
 					<img src="https://cfde-drc.s3.us-east-2.amazonaws.com/assets/img/cfde_unified_icon.svg" alt={'nav-but'} width={120} height={120}/>
 				</Wrapper>
 			</Tooltip>
